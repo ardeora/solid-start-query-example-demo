@@ -1,12 +1,10 @@
-import { A, Outlet } from "solid-start";
+import { A, Outlet } from "@solidjs/router";
 import { createQuery } from "@tanstack/solid-query";
-import { Component, For, createSignal } from "solid-js";
+import { Component, ErrorBoundary, For, createSignal } from "solid-js";
 import { API_URL, IUser, sleep } from "../utils";
-import { reconcile } from "solid-js/store";
 import { Key } from "@solid-primitives/keyed";
 
 export const Query = () => {
-  const [count, setCount] = createSignal(1);
   const [search, setSearch] = createSignal("");
 
   const usersQuery = createQuery(() => ({
@@ -23,6 +21,7 @@ export const Query = () => {
       return response as IUser[];
     },
     placeholderData: (prev) => prev,
+    deferStream: true,
   }));
 
   return (
@@ -42,7 +41,11 @@ export const Query = () => {
           </Key>
         </div>
       </div>
-      <Outlet />
+      <ErrorBoundary
+        fallback={(err, retry) => <ErrorComponent error={err} retry={retry} />}
+      >
+        <Outlet />
+      </ErrorBoundary>
     </div>
   );
 };
@@ -87,7 +90,7 @@ const SearchInput: Component<{
   setSearch: (s: string) => void;
 }> = (props) => {
   return (
-    <form class="pb-4 px-4">
+    <form class="pb-4 px-4" onSubmit={(e) => e.preventDefault()}>
       <label hidden class="text-gray-700 text-sm font-semibold" for="search">
         Search Users
       </label>
@@ -118,5 +121,42 @@ const SearchInput: Component<{
         ></input>
       </div>
     </form>
+  );
+};
+
+interface ErrorComponentProps {
+  error: Error;
+  retry: () => void;
+}
+
+const ErrorComponent: Component<ErrorComponentProps> = (props) => {
+  return (
+    <div class="flex-1 flex justify-center items-center flex-col gap-4">
+      <div class="text-gray-600">
+        Something went wrong: {props.error.message}
+      </div>
+      <button
+        onClick={props.retry}
+        class="bg-blue-500 px-5 stroke-blue-50 flex gap-2 items-center py-2 disabled:opacity-75 text-blue-50 hover:bg-blue-600 shadow-blue-500 rounded-md"
+      >
+        <span>
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M20.453 12.893C20.1752 15.5029 18.6964 17.9487 16.2494 19.3614C12.1839 21.7086 6.98539 20.3157 4.63818 16.2502L4.38818 15.8172M3.54613 11.107C3.82393 8.49711 5.30272 6.05138 7.74971 4.63862C11.8152 2.29141 17.0137 3.68434 19.3609 7.74983L19.6109 8.18285M3.49316 18.0661L4.22521 15.334L6.95727 16.0661M17.0424 7.93401L19.7744 8.66606L20.5065 5.93401"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <span>Retry</span>
+      </button>
+    </div>
   );
 };
