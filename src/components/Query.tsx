@@ -2,7 +2,6 @@ import { A, Outlet } from "@solidjs/router";
 import { createQuery } from "@tanstack/solid-query";
 import { Component, ErrorBoundary, For, createSignal } from "solid-js";
 import { API_URL, IUser, sleep } from "../utils";
-import { Key } from "@solid-primitives/keyed";
 
 export const Query = () => {
   const [search, setSearch] = createSignal("");
@@ -36,9 +35,7 @@ export const Query = () => {
             usersQuery.isFetching ? "opacity-60" : ""
           }`}
         >
-          <Key each={usersQuery.data} by={(user) => user.id}>
-            {(user) => <UserCard user={user()} />}
-          </Key>
+          <For each={usersQuery.data}>{(user) => <UserCard user={user} />}</For>
         </div>
       </div>
       <ErrorBoundary

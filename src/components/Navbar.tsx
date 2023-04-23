@@ -1,9 +1,4 @@
 import { A, Outlet } from "solid-start";
-import { createQuery } from "@tanstack/solid-query";
-import { Component, For, createSignal } from "solid-js";
-import { API_URL, IUser, sleep } from "../utils";
-import { reconcile } from "solid-js/store";
-import { Key } from "@solid-primitives/keyed";
 
 export const Navbar = () => {
   return (

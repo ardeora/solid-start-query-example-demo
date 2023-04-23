@@ -20,11 +20,7 @@ import {
   focusManager,
 } from "@tanstack/solid-query";
 import "./root.css";
-import { isServer } from "solid-js/web";
-
-// const SolidQueryDevtools = unstable_clientOnly(
-//   () => import("@adeora/solid-query-devtools")
-// );
+import { SolidQueryDevtools } from "@adeora/solid-query-devtools";
 
 export default function Root() {
   const location = useLocation();
@@ -43,7 +39,7 @@ export default function Root() {
       </Head>
       <Body>
         <QueryClientProvider client={client}>
-          {/* <SolidQueryDevtools /> */}
+          <SolidQueryDevtools />
           <Suspense>
             <ErrorBoundary>
               <Routes>

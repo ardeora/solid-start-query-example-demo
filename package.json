@@ -15,7 +15,7 @@
     "vite": "^4.1.4"
   },
   "dependencies": {
-    "@adeora/solid-query-devtools": "^0.0.9",
+    "@adeora/solid-query-devtools": "^0.0.10",
     "@solid-primitives/keyed": "^1.1.10",
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.8.2",
