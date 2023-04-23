@@ -37,7 +37,7 @@ export default function UserProfile() {
     queryFn: async ({ queryKey }) => {
       const [key, id] = queryKey;
       await sleep(1000);
-      const response = await fetch(`${API_URL}/user_details/${params.id}`).then(
+      const response = await fetch(`${API_URL}/user_details/${id}`).then(
         (res) => res.json()
       );
       return response as IUserDetails;
