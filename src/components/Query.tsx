@@ -14,14 +14,14 @@ export const Query = () => {
         search: search(),
       },
     ],
-    queryFn: async () => {
-      const response = await fetch(`${API_URL}/users?search=${search()}`).then(
+    queryFn: async ({ queryKey }) => {
+      const search = queryKey[1].search;
+      const response = await fetch(`${API_URL}/users?search=${search}`).then(
         (res) => res.json()
       );
       return response as IUser[];
     },
     placeholderData: (prev) => prev,
-    deferStream: true,
   }));
 
   return (

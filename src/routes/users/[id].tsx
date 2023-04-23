@@ -24,7 +24,7 @@ export default function UserProfile() {
   const userQuery = createQuery(() => ({
     queryKey: ["users", params.id],
     queryFn: async () => {
-      await sleep(4000);
+      await sleep(1000);
       const response = await fetch(`${API_URL}/users/${params.id}`).then(
         (res) => res.json()
       );

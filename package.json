@@ -15,13 +15,14 @@
     "vite": "^4.1.4"
   },
   "dependencies": {
-    "@adeora/solid-query-devtools": "^0.0.7",
+    "@adeora/solid-query-devtools": "^0.0.9",
     "@solid-primitives/keyed": "^1.1.10",
     "@solidjs/meta": "^0.28.2",
     "@solidjs/router": "^0.8.2",
-    "@tanstack/solid-query": "5.0.0-alpha.16",
+    "@tanstack/solid-query": "5.0.0-alpha.20",
     "solid-js": "^1.6.16",
     "solid-start": "^0.2.24",
+    "solid-start-vercel": "^0.2.26",
     "undici": "^5.15.1"
   },
   "engines": {
