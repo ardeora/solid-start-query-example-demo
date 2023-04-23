@@ -31,14 +31,8 @@ export const Query = () => {
           Users
         </div>
         <SearchInput search={search()} setSearch={setSearch} />
-        <div
-          class={`flex-1 px-4 overflow-y-auto flex flex-col gap-2 ${
-            usersQuery.isFetching ? "opacity-60" : ""
-          }`}
-        >
-          <Key each={usersQuery.data} by={(user) => user.id}>
-            {(user) => <UserCard user={user()} />}
-          </Key>
+        <div class={`flex-1 px-4 overflow-y-auto flex flex-col gap-2`}>
+          <For each={usersQuery.data}>{(user) => <UserCard user={user} />}</For>
         </div>
       </div>
       <ErrorBoundary

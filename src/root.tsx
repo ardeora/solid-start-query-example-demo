@@ -21,6 +21,7 @@ import {
 } from "@tanstack/solid-query";
 import "./root.css";
 import { isServer } from "solid-js/web";
+import { SolidQueryDevtools } from "../../solid-query-devtools/src";
 
 // const SolidQueryDevtools = unstable_clientOnly(
 //   () => import("@adeora/solid-query-devtools")
@@ -43,7 +44,7 @@ export default function Root() {
       </Head>
       <Body>
         <QueryClientProvider client={client}>
-          {/* <SolidQueryDevtools /> */}
+          <SolidQueryDevtools queryClient={client} />
           <Suspense>
             <ErrorBoundary>
               <Routes>
