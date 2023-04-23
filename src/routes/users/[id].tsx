@@ -23,10 +23,10 @@ export default function UserProfile() {
 
   const userQuery = createQuery(() => ({
     queryKey: ["users", params.id],
-    queryFn: async () => {
-      await sleep(1000);
-      const response = await fetch(`${API_URL}/users/${params.id}`).then(
-        (res) => res.json()
+    queryFn: async ({ queryKey }) => {
+      const [key, id] = queryKey;
+      const response = await fetch(`${API_URL}/users/${id}`).then((res) =>
+        res.json()
       );
       return response as IUser;
     },
@@ -34,7 +34,9 @@ export default function UserProfile() {
 
   const userDetailsQuery = createQuery(() => ({
     queryKey: ["user_details", params.id],
-    queryFn: async () => {
+    queryFn: async ({ queryKey }) => {
+      const [key, id] = queryKey;
+      await sleep(1000);
       const response = await fetch(`${API_URL}/user_details/${params.id}`).then(
         (res) => res.json()
       );
